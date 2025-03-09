@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 vars:
   REPO_PREFIX: "https://github.com/DimaCherkes-web-projects"
@@ -9,16 +9,30 @@ vars:
   INFRASTRUCTURE_LOCAL: "./infrastructure"
   INFRASTRUCTURE_REMOTE: "{{.REPO_PREFIX}}/infrastructure"
 
-
 tasks:
-  clone:
+  git:clone:
     silent: true
     cmds:
-      - | 
+      - |
         [ -d "{{.BACKEND_LOCAL}}" ] || git clone "{{.BACKEND_REMOTE}}" "{{.BACKEND_LOCAL}}"
-      - | 
+      - |
         [ -d "{{.FRONTEND_LOCAL}}" ] || git clone "{{.FRONTEND_REMOTE}}" "{{.FRONTEND_LOCAL}}"
-      - | 
+      - |
         [ -d "{{.INFRASTRUCTURE_LOCAL}}" ] || git clone "{{.INFRASTRUCTURE_REMOTE}}" "{{.INFRASTRUCTURE_LOCAL}}"
       - echo Cloned
 
+  git:pull:main:
+    silent: true
+    cmds:
+      - git -C "{{.BACKEND_LOCAL}}" pull origin main
+      - git -C "{{.FRONTEND_LOCAL}}" pull origin main
+      - git -C "{{.INFRASTRUCTURE_LOCAL}}" pull origin main
+      - echo Pulled
+
+  git:checkout:main:
+    silent: true
+    cmds:
+      - git -C "{{.BACKEND_LOCAL}}" checkout main
+      - git -C "{{.FRONTEND_LOCAL}}" checkout main
+      - git -C "{{.INFRASTRUCTURE_LOCAL}}" checkout main
+      - echo Checked out
