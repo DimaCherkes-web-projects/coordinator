@@ -1,0 +1,24 @@
+version: '3'
+
+vars:
+  REPO_PREFIX: "https://github.com/DimaCherkes-web-projects"
+  BACKEND_LOCAL: "./backend"
+  BACKEND_REMOTE: "{{.REPO_PREFIX}}/backend"
+  FRONTEND_LOCAL: "./frontend"
+  FRONTEND_REMOTE: "{{.REPO_PREFIX}}/frontend"
+  INFRASTRUCTURE_LOCAL: "./infrastructure"
+  INFRASTRUCTURE_REMOTE: "{{.REPO_PREFIX}}/infrastructure"
+
+
+tasks:
+  clone:
+    silent: true
+    cmds:
+      - | 
+        [ -d "{{.BACKEND_LOCAL}}" ] || git clone "{{.BACKEND_REMOTE}}" "{{.BACKEND_LOCAL}}"
+      - | 
+        [ -d "{{.FRONTEND_LOCAL}}" ] || git clone "{{.FRONTEND_REMOTE}}" "{{.FRONTEND_LOCAL}}"
+      - | 
+        [ -d "{{.INFRASTRUCTURE_LOCAL}}" ] || git clone "{{.INFRASTRUCTURE_REMOTE}}" "{{.INFRASTRUCTURE_LOCAL}}"
+      - echo Cloned
+
