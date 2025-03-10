@@ -1,5 +1,10 @@
 version: "3"
 
+includes:
+  infra:
+    dir: "./infrastructure"
+    taskfile: "./infrastructure/Taskfile.yml"
+
 vars:
   REPO_PREFIX: "https://github.com/DimaCherkes-web-projects"
   BACKEND_LOCAL: "./backend"
